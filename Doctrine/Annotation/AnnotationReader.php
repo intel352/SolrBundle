@@ -15,9 +15,10 @@ class AnnotationReader {
 	const FIELD_IDENTIFIER_CLASS = 'FS\SolrBundle\Doctrine\Annotation\Id';
 	const DOCUMENT_INDEX_CLASS = 'FS\SolrBundle\Doctrine\Annotation\Document';
 	
+	const ONE_TO_ONE_RELATION_CLASS = 'FS\SolrBundle\Doctrine\Annotation\OneToOne';
+	
 	public function __construct() {
 		$this->reader = new Reader();
-// 		$this->reader->setIgnoreNotImportedAnnotations(true);
 	}
 	
 	private function getPropertiesByType($entity, $type) {
@@ -118,7 +119,11 @@ class AnnotationReader {
 			$annotation = $this->reader->getClassAnnotation($reflectionClass, self::DOCUMENT_INDEX_CLASS);
 		
 		return $annotation !== null;
-	}	
+	}
+	
+	public function getOneToOneRelations($entity) {
+		return $this->getPropertiesByType($entity, self::ONE_TO_ONE_RELATION_CLASS);
+	}
 }
 
 ?>

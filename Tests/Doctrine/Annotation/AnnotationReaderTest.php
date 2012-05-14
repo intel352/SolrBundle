@@ -2,6 +2,8 @@
 
 namespace FS\SolrBundle\Tests\Doctrine\Annotation;
 
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithOneToOne;
+
 use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
 
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
@@ -74,6 +76,20 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase {
 		$expected = '';
 		$actual = $repository;
 		$this->assertEquals($expected, $actual, 'no repository was declared');
-	}	
+	}
+	
+	public function testGetOneToOneRelations_OneRelationFound() {
+		$reader = new AnnotationReader();
+		$actual = $reader->getOneToOneRelations(new EntityWithOneToOne());
+		
+		$this->assertTrue(is_array($actual), 'no array was returned');
+		$this->assertEquals(1, count($actual), 'one relation should be returned');
+		
+		$expectedFieldName = 'oneToOne';
+		$relation = array_pop($actual);
+		$actual = $relation->name;
+		
+		$this->assertEquals($expectedFieldName, $actual, 'wrong field found with one to one annotation');
+	}
 }
 
