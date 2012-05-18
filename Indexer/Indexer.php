@@ -41,9 +41,11 @@ class Indexer implements IndexerInterface {
 	 * @see FS\SolrBundle\Indexer.IndexerInterface::toIndex()
 	 */
 	public function toIndex(MetaInformation $metaInformation) {
-		$command = $this->commandFactory->get('all');
+		$command = $this->commandFactory->getMapAllFieldsCommand();
 		$this->mapper->setMappingCommand($command);
+
 		$document = $this->mapper->toDocument($metaInformation);
+		
 		
 		$this->addDocumentToIndex($document);
 	}

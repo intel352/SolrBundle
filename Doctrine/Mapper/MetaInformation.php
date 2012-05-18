@@ -18,6 +18,8 @@ class MetaInformation {
 	
 	private $entity = null;
 	
+	private $oneToOne = array();
+	
 	public function getEntityId() {
 		if ($this->entity !== null) {
 			return $this->entity->getId();
@@ -143,9 +145,32 @@ class MetaInformation {
 	public function setFieldMapping($fieldMapping) {
 		$this->fieldMapping = $fieldMapping;
 	}
-
-
 	
+	/**
+	 * @return bool
+	 */
+	public function hasRelations() {
+		if (count($this->oneToOne) > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function getOneToOne() {
+		return $this->oneToOne;
+	}
+
+	/**
+	 * @param array
+	 */
+	public function setOneToOne(array $oneToOne) {
+		$this->oneToOne = $oneToOne;
+	}
+
 	
 }
 

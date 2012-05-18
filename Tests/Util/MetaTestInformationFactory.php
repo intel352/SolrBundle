@@ -1,6 +1,8 @@
 <?php
 namespace FS\SolrBundle\Tests\Util;
 
+use FS\SolrBundle\Doctrine\Annotation\OneToOne;
+
 use FS\SolrBundle\Doctrine\Annotation\Field;
 
 use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
@@ -36,6 +38,23 @@ class MetaTestInformationFactory {
 		
 		return $metaInformation;
 	}
+	
+	/**
+	 * @return MetaInformation
+	 */	
+	public static function getMetaInformationWithRelations() {
+		$metainformation = self::getMetaInformation();
+		
+		$entity = new ValidTestEntity();
+		$entity->setId(10);
+		
+		$information = new MetaInformation();
+		$information->setEntity($entity);
+		$metainformation->setOneToOne(array('author_rel_i'=>$information));
+		
+		return $metainformation;
+	}
+	
 }
 
 ?>

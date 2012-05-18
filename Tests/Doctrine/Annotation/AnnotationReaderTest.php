@@ -85,11 +85,15 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(is_array($actual), 'no array was returned');
 		$this->assertEquals(1, count($actual), 'one relation should be returned');
 		
+		$otherFields = $reader->getFields(new EntityWithOneToOne());
+		$this->assertEquals(2, count($otherFields), 'entity has two ordinary fields');
+		
 		$expectedFieldName = 'oneToOne';
 		$relation = array_pop($actual);
 		$actual = $relation->name;
 		
 		$this->assertEquals($expectedFieldName, $actual, 'wrong field found with one to one annotation');
+		$this->assertInstanceof('FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity', $relation->value);
 	}
 }
 

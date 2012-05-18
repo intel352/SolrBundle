@@ -15,6 +15,13 @@ class CommandFactory {
 	public function add(AbstractDocumentCommand $command, $commandName) {
 		$this->commands[$commandName] = $command;
 	}
+	
+	/**
+	 * @return AbstractDocumentCommand
+	 */
+	public function getMapAllFieldsCommand() {
+		return new ComposedDocumentCommand();
+	} 
 }
 
 ?>

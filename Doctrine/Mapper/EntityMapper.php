@@ -18,8 +18,8 @@ class EntityMapper {
 	
 	/**
 	 * 
-	 * @param object $entity
-	 * @return \SolrInputDocument
+	 * @param MetaInformation $meta
+	 * @return null|\SolrDocument
 	 */
 	public function toDocument(MetaInformation $meta) {
 		if ($this->mappingCommand instanceof AbstractDocumentCommand) {

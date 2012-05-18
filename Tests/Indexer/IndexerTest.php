@@ -48,7 +48,7 @@ class IndexerTest extends \PHPUnit_Framework_TestCase {
 						  ->will($this->returnValue($metaInformation));		
 	}
 	
-	public function testAddDocument() {
+	public function testAddDocument_SimpleEntity() {
 		$solrClientFake = new SolrClientFake();
 		
 		$this->solrConnection->expects($this->once())
@@ -62,6 +62,22 @@ class IndexerTest extends \PHPUnit_Framework_TestCase {
 		
 		$this->assertTrue($solrClientFake->isCommited(), 'commit was never called');
 	}
+	
+	public function testAddDocument_EntityWithRelations() {
+		$solrClientFake = new SolrClientFake();
+	
+		$this->solrConnection->expects($this->exactly(1))
+							 ->method('getClient')
+							 ->will($this->returnValue($solrClientFake));
+	
+		$metaInformation = MetaTestInformationFactory::getMetaInformationWithRelations();
+	
+		$indexer = new Indexer($this->solrConnection, $this->commandFactory);
+		$indexer->toIndex($metaInformation);
+	
+		$this->assertTrue($solrClientFake->isCommited(), 'commit was never called');
+	}	
+	
 	
 	public function UpdateDocument() {
 		$solrClientFake = new SolrClientFake();

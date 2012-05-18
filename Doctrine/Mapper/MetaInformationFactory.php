@@ -1,6 +1,8 @@
 <?php
 namespace FS\SolrBundle\Doctrine\Mapper;
 
+use FS\SolrBundle\Doctrine\Annotation\Relation;
+
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
 use Doctrine\ORM\Configuration;
 
@@ -61,8 +63,29 @@ class MetaInformationFactory {
 		$metaInformation->setFields($this->annotationReader->getFields($entity));
 		$metaInformation->setRepository($this->annotationReader->getRepository($entity));
 		$metaInformation->setIdentifier($this->annotationReader->getIdentifier($entity));
+		$this->loadOneToOneRelation($metaInformation, $entity);
 		
 		return $metaInformation;
+	}
+	
+	/**
+	 * @todo spezielle metainformation fuer relationen
+	 * 
+	 * @param MetaInformation $metaInformation
+	 * @param object $entity
+	 */
+	private function loadOneToOneRelation(MetaInformation $metaInformation, $entity) {
+		$relations = $this->annotationReader->getOneToOneRelations($entity);
+		
+		$relationInformations = array();
+		foreach ($relations as $relation) {
+			if ($relation instanceof Relation) {
+				$relationEntityInformation = $this->loadInformation($relation->value);
+				$relationInformations[$relation->getFieldName()] = $relationEntityInformation;
+			}
+		}
+		
+		$metaInformation->setOneToOne($relationInformations);
 	}
 	
 	private function getClass($entity) {

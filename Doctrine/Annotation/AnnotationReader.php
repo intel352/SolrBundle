@@ -19,6 +19,7 @@ class AnnotationReader {
 	
 	public function __construct() {
 		$this->reader = new Reader();
+		$this->reader->setIgnoreNotImportedAnnotations(true);
 	}
 	
 	private function getPropertiesByType($entity, $type) {
@@ -116,7 +117,7 @@ class AnnotationReader {
 	public function hasDocumentDeclaration($entity) {
 		$reflectionClass = new \ReflectionClass($entity);
 	
-			$annotation = $this->reader->getClassAnnotation($reflectionClass, self::DOCUMENT_INDEX_CLASS);
+		$annotation = $this->reader->getClassAnnotation($reflectionClass, self::DOCUMENT_INDEX_CLASS);
 		
 		return $annotation !== null;
 	}

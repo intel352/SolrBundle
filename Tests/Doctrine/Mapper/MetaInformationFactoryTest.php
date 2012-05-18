@@ -1,6 +1,8 @@
 <?php
 namespace FS\SolrBundle\Tests\Doctrine\Mapper;
 
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithOneToOne;
+
 use FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory;
 use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
 
@@ -103,7 +105,26 @@ class MetaInformationFactoryTest extends \PHPUnit_Framework_TestCase {
 	
 		$expected = $entityClassname;
 		$this->assertEquals($expected, $informations->getClassName(), 'class from fullclassname not discovered');
-	}	
+	}
+	
+	public function testLoadInformation_EntityWithRelation() {
+		$doctrineConfiguration = $this->setupDoctrine('FS\SolrBundle\Tests\Doctrine\Mapper');
+		
+		$factory = new MetaInformationFactory();
+		$factory->setDoctrineConfiguration($doctrineConfiguration);
+		
+		$informations = $factory->loadInformation(new EntityWithOneToOne());
+
+		$this->assertTrue(is_array($informations->getOneToOne()));
+		$this->assertTrue(array_key_exists('oneToOne_rel_i', $informations->getOneToOne()), 'document fieldname as key');
+		$this->assertEquals(1, count($informations->getOneToOne()));
+		
+		$relationInformation = array_pop($informations->getOneToOne());
+		$this->assertInstanceof('FS\SolrBundle\Doctrine\Mapper\MetaInformation', $relationInformation);
+		
+		$this->assertEquals('FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity',$relationInformation->getClassName(), 'relation class');
+		$this->assertEquals(3, count($relationInformation->getFields()), 'ordinary fields of relation class');
+	}
 }
 
 ?>
