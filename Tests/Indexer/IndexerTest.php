@@ -26,7 +26,7 @@ use FS\SolrBundle\Query\SolrQuery;
 use FS\SolrBundle\SolrQueryFacade;
 
 /**
- *  test case.
+ *  @group indexer
  */
 class IndexerTest extends \PHPUnit_Framework_TestCase {
 
@@ -66,7 +66,7 @@ class IndexerTest extends \PHPUnit_Framework_TestCase {
 	public function testAddDocument_EntityWithRelations() {
 		$solrClientFake = new SolrClientFake();
 	
-		$this->solrConnection->expects($this->exactly(1))
+		$this->solrConnection->expects($this->once())
 							 ->method('getClient')
 							 ->will($this->returnValue($solrClientFake));
 	
@@ -76,6 +76,7 @@ class IndexerTest extends \PHPUnit_Framework_TestCase {
 		$indexer->toIndex($metaInformation);
 	
 		$this->assertTrue($solrClientFake->isCommited(), 'commit was never called');
+		$this->assertEquals(2, $solrClientFake->getCommits(), 'two commits: relation-document, main-document');
 	}	
 	
 	

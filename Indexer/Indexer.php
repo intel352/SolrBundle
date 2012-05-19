@@ -1,6 +1,8 @@
 <?php
 namespace FS\SolrBundle\Indexer;
 
+use FS\SolrBundle\Doctrine\Mapper\RelationMetaInformation;
+
 use FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory;
 use FS\SolrBundle\SolrConnection;
 use FS\SolrBundle\Doctrine\Mapper\EntityMapper;
@@ -44,12 +46,24 @@ class Indexer implements IndexerInterface {
 		$command = $this->commandFactory->getMapAllFieldsCommand();
 		$this->mapper->setMappingCommand($command);
 
-		$document = $this->mapper->toDocument($metaInformation);
+		if ($metaInformation->hasRelations()) {
+			$this->indexOneToOne($metaInformation->getOneToOne());	
+		}
 		
+		$document = $this->mapper->toDocument($metaInformation);
 		
 		$this->addDocumentToIndex($document);
 	}
 
+	private function indexOneToOne(array $oneToOne) {
+		foreach ($oneToOne as $relationInformations) {
+			if ($relationInformations instanceof RelationMetaInformation) {
+				$document = $this->mapper->toDocument($relationInformations);
+				$this->addDocumentToIndex($document);
+			}
+		}		
+	}
+	
 	private function addDocumentToIndex($doc) {
 		try {
 			$updateResponse = $this->solrClient->addDocument($doc);
