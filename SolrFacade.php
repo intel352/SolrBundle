@@ -1,22 +1,15 @@
 <?php
 namespace FS\SolrBundle;
 
+use FS\SolrBundle\Indexer\IndexerInterface;
 use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
-
 use FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory;
-
 use FS\SolrBundle\Event\EventManager;
-
 use FS\SolrBundle\Query\AbstractQuery;
-
 use FS\SolrBundle\Repository\Repository;
-
 use Doctrine\ORM\Configuration;
-
 use FS\SolrBundle\Query\SolrQuery;
-
 use FS\SolrBundle\Query\FindByIdentifierQuery;
-
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory;
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
@@ -55,18 +48,27 @@ class SolrFacade {
 	
 	/**
 	 * 
+	 * @var IndexerInterface
+	 */
+	private $indexer = null;
+	
+	/**
+	 * 
 	 * @param SolrConnection $connection
 	 * @param CommandFactory $commandFactory
 	 * @param EventManager $manager
 	 * @param MetaInformationFactory $metaInformationFactory
 	 */
-	public function __construct(SolrConnection $connection, CommandFactory $commandFactory, EventManager $manager, MetaInformationFactory $metaInformationFactory) {
+	public function __construct(SolrConnection $connection, CommandFactory $commandFactory, EventManager $manager, MetaInformationFactory $metaInformationFactory, IndexerInterface $indexer) {
 		$this->solrClient = $connection->getClient();
 		$this->commandFactory = $commandFactory;
+
 		$this->eventManager = $manager;
 		$this->metaInformationFactory = $metaInformationFactory;
 		
 		$this->entityMapper = new EntityMapper();
+		
+		$this->indexer = $indexer;
 	}
 	
 	/**
@@ -166,11 +168,9 @@ class SolrFacade {
 	 */
 	public function updateDocument($entity) {
 		$metaInformation = $this->metaInformationFactory->loadInformation($entity);
-		$doc = $this->toDocument($metaInformation);
-		
 		$this->eventManager->handle(EventManager::UPDATE, $metaInformation);
 		
-		$this->addDocumentToIndex($doc);
+		$this->indexer->toIndex($metaInformation);
 	}	
 	
 	/**
@@ -179,38 +179,12 @@ class SolrFacade {
 	 */
 	public function addDocument($entity) {
 		$metaInformation = $this->metaInformationFactory->loadInformation($entity);
-		$doc = $this->toDocument($metaInformation);
 		
 		$this->eventManager->handle(EventManager::INSERT, $metaInformation);
-		
-		$this->addDocumentToIndex($doc);
-	}
-	
-	/**
-	 * 
-	 * @param MetaInformation metaInformationsy
-	 * @return SolrInputDocument|null
-	 */
-	private function toDocument(MetaInformation $metaInformation) {
-		$command = $this->commandFactory->get('all');
-		
-		$this->entityMapper->setMappingCommand($command);
-		$doc = $this->entityMapper->toDocument($metaInformation);
 
-		return $doc;
+		$this->indexer->toIndex($metaInformation);
 	}
 	
-	private function addDocumentToIndex($doc) {
-		try {
-			$updateResponse = $this->solrClient->addDocument($doc);
-			
-			$this->solrClient->commit();
-			
-		} catch (\Exception $e) { 
-			throw new \RuntimeException('could not index entity');
-		}		
-	}
-		
 	/**
 	 * 
 	 * @return array
