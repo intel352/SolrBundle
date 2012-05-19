@@ -80,8 +80,10 @@ class MetaInformationFactory {
 		$relationInformations = array();
 		foreach ($relations as $relation) {
 			if ($relation instanceof Relation) {
-				$relationEntityInformation = $this->loadInformation($relation->value);
-				$relationInformations[$relation->getFieldName()] = $relationEntityInformation;
+				$relationEntityInformation = new RelationMetaInformation($this->loadInformation($relation->value));
+				$relationEntityInformation->setFieldname($relation->getFieldName());
+				
+				$relationInformations[] = $relationEntityInformation;
 			}
 		}
 		

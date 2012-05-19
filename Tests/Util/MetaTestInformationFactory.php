@@ -1,6 +1,8 @@
 <?php
 namespace FS\SolrBundle\Tests\Util;
 
+use FS\SolrBundle\Doctrine\Mapper\RelationMetaInformation;
+
 use FS\SolrBundle\Doctrine\Annotation\OneToOne;
 
 use FS\SolrBundle\Doctrine\Annotation\Field;
@@ -50,7 +52,10 @@ class MetaTestInformationFactory {
 		
 		$information = new MetaInformation();
 		$information->setEntity($entity);
-		$metainformation->setOneToOne(array('author_rel_i'=>$information));
+		$information = new RelationMetaInformation($information);
+		$information->setFieldname('author_rel_i');
+		
+		$metainformation->setOneToOne(array($information));
 		
 		return $metainformation;
 	}
