@@ -187,6 +187,7 @@ class SolrFacade {
 	
 	/**
 	 * 
+	 * @param AbstractQuery $query
 	 * @return array
 	 */
 	public function query(AbstractQuery $query) {
@@ -213,6 +214,10 @@ class SolrFacade {
 		return $mappedEntities;
 	}
 	
+	/**
+	 * 
+	 * @throws \RuntimeException
+	 */
 	public function clearIndex() {
 		try {
 			$this->solrClient->deleteByQuery('*:*');
@@ -222,7 +227,11 @@ class SolrFacade {
 			throw new \RuntimeException('could not clear index');
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param object $entity
+	 */
 	public function synchronizeIndex($entity) {
 		$this->updateDocument($entity);
 	}	

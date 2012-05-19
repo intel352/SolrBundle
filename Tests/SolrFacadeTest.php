@@ -34,8 +34,16 @@ class SolrFacadeTest extends \PHPUnit_Framework_TestCase {
 	private $eventManager = null;
 	private $indexer = null;
 	
+	/**
+	 * 
+	 * @var SolrFacade
+	 */
 	private $solr = null;
 	
+	/**
+	 * 
+	 * @var MetaInformations
+	 */
 	private $metaInformation = null;
 	
 	public function setUp() {
@@ -163,6 +171,22 @@ class SolrFacadeTest extends \PHPUnit_Framework_TestCase {
 		$this->solr->removeDocument(new ValidTestEntity());
 	
 		$this->assertTrue($solrClientFake->isCommited(), 'commit was never called');
-	}	
+	}
+	
+	public function testSynchronizeIndex() {
+		$solrClientFake = new SolrClientFake();
+		
+		$this->config->expects($this->any())
+				     ->method('getClient')
+					 ->will($this->returnValue($solrClientFake));
+
+		$this->setupMetaFactoryLoadOneCompleteInformation();
+		
+		$this->indexer->expects($this->once())
+					  ->method('toIndex')
+					  ->with($this->equalTo($this->metaInformation));
+
+		$this->solr->synchronizeIndex(new ValidTestEntity());		
+	}
 }
 
