@@ -2,14 +2,13 @@
 
 namespace FS\SolrBundle\Tests\Doctrine\Annotation;
 
+
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithOneToOne;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithRepository;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository;
-use FS\SolrBundle\Tests\Doctrine\Mapper\NotIndexedEntity;
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\NotIndexedEntity;
 
 /**
  * 
@@ -93,7 +92,7 @@ class AnnotationReaderTest extends \PHPUnit_Framework_TestCase {
 		$actual = $relation->name;
 		
 		$this->assertEquals($expectedFieldName, $actual, 'wrong field found with one to one annotation');
-		$this->assertInstanceof('FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity', $relation->value);
+		$this->assertInstanceof('FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity', $relation->value);
 	}
 }
 

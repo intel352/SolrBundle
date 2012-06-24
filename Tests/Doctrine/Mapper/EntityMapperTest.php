@@ -1,13 +1,10 @@
 <?php
 
 namespace FS\SolrBundle\Tests\Doctrine\Mapper;
-
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\Tests\Util\MetaTestInformationFactory;
-
 use FS\SolrBundle\Doctrine\Mapper\Mapping\MapAllFieldsCommand;
-
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
-
 use FS\SolrBundle\Doctrine\Mapper\EntityMapper;
 
 /**

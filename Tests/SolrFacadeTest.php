@@ -3,17 +3,11 @@
 namespace FS\SolrBundle\Tests\Solr;
 
 use FS\SolrBundle\Event\EventManager;
-
 use FS\SolrBundle\Tests\SolrClientFake;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithRepository;
-
 use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
-
 use FS\SolrBundle\Tests\Util\MetaTestInformationFactory;
-
 use FS\SolrBundle\SolrFacade;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository;
 use FS\SolrBundle\Tests\Util\CommandFactoryStub;

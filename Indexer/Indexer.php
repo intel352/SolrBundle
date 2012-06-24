@@ -70,7 +70,7 @@ class Indexer implements IndexerInterface {
 				
 			$this->solrClient->commit();
 		} catch (\Exception $e) {
-			throw new IndexerException('could not index entity');
+			throw new IndexerException('could not index entity'. $e->getMessage());
 		}
 	}	
 	

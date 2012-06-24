@@ -2,13 +2,9 @@
 namespace FS\SolrBundle\Tests\Util;
 
 use FS\SolrBundle\Doctrine\Mapper\RelationMetaInformation;
-
 use FS\SolrBundle\Doctrine\Annotation\OneToOne;
-
 use FS\SolrBundle\Doctrine\Annotation\Field;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
 
 class MetaTestInformationFactory {

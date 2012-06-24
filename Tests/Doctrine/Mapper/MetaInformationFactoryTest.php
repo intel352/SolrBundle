@@ -2,9 +2,8 @@
 namespace FS\SolrBundle\Tests\Doctrine\Mapper;
 
 use FS\SolrBundle\Doctrine\Mapper\RelationMetaInformation;
-
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithOneToOne;
-
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory;
 use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
 
@@ -28,7 +27,7 @@ class MetaInformationFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$expectedDocumentName = 'validtestentity';
 		
-		$doctrineConfiguration = $this->setupDoctrine('FS\SolrBundle\Tests\Doctrine\Mapper');
+		$doctrineConfiguration = $this->setupDoctrine('FS\SolrBundle\Tests\Doctrine\Annotation\Entities');
 		
 		$factory = new MetaInformationFactory();
 		$factory->setDoctrineConfiguration($doctrineConfiguration);
@@ -64,8 +63,7 @@ class MetaInformationFactoryTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedExceptionMessage no declaration for document found in entity
 	 */
 	public function testLoadInformation_EntityHasNoDocumentDeclaration_ShouldThrowException() {
-		$doctrineConfiguration = $this->setupDoctrine('FS\SolrBundle\Tests\Doctrine\Mapper');
-		
+		$doctrineConfiguration = $this->setupDoctrine('FS\SolrBundle\Tests\Doctrine\Annotation\Entities');
 		$factory = new MetaInformationFactory();
 		$factory->setDoctrineConfiguration($doctrineConfiguration);
 		$factory->loadInformation('FSBlogBundle:NotIndexedEntity');
@@ -127,7 +125,7 @@ class MetaInformationFactoryTest extends \PHPUnit_Framework_TestCase {
 		
 		$this->assertInstanceof('FS\SolrBundle\Doctrine\Mapper\MetaInformation', $relationInformation);
 		
-		$this->assertEquals('FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity',$relationInformation->getClassName(), 'relation class');
+		$this->assertEquals('FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity',$relationInformation->getClassName(), 'relation class');
 		$this->assertEquals(3, count($relationInformation->getFields()), 'ordinary fields of relation class');
 	}
 }

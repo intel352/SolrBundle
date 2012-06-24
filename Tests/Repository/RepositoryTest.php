@@ -3,15 +3,10 @@
 namespace FS\SolrBundle\Tests\Solr\Repository;
 
 use FS\SolrBundle\Tests\Util\MetaTestInformationFactory;
-
 use FS\SolrBundle\Tests\Util\CommandFactoryStub;
-
 use FS\SolrBundle\Query\SolrQuery;
-
 use FS\SolrBundle\Repository\Repository;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
+use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntity;
 use FS\SolrBundle\SolrFacade;
 
 /**
