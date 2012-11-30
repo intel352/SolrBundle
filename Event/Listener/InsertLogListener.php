@@ -2,7 +2,6 @@
 namespace FS\SolrBundle\Event\Listener;
 
 use FS\SolrBundle\Event\Event;
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
 
 class InsertLogListener extends AbstractLogListener {
 	

@@ -3,9 +3,7 @@
 namespace FS\SolrBundle\Tests\Solr\Event;
 
 use FS\SolrBundle\Event\Event;
-
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
-
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
 use FS\SolrBundle\Event\EventManager;
 
 /**

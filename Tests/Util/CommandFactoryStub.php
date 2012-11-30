@@ -1,16 +1,15 @@
 <?php
 namespace FS\SolrBundle\Tests\Util;
 
-use FS\SolrBundle\Doctrine\Mapper\Mapping\MapIdentifierCommand;
-
-use FS\SolrBundle\Doctrine\Mapper\Mapping\MapAllFieldsCommand;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\Command\MapIdentifierCommand;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\Command\MapAllFieldsCommand;
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
-use FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\Command\CommandFactory;
 
 class CommandFactoryStub {
+
 	/**
-	 * 
-	 * @return \FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory
+	 * @return CommandFactory
 	 */
 	public static function getFactoryWithAllMappingCommand() {
 		$commandFactory = new CommandFactory();

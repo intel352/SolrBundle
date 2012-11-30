@@ -1,7 +1,7 @@
 <?php
 namespace FS\SolrBundle\Event;
 
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
 
 class Event {
 	

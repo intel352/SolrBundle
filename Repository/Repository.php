@@ -2,9 +2,7 @@
 namespace FS\SolrBundle\Repository;
 
 use FS\SolrBundle\Query\FindByDocumentNameQuery;
-
 use FS\SolrBundle\Query\FindByIdentifierQuery;
-
 use FS\SolrBundle\SolrFacade;
 
 class Repository implements RepositoryInterface {

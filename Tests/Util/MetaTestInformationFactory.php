@@ -1,11 +1,9 @@
 <?php
 namespace FS\SolrBundle\Tests\Util;
 
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity;
 use FS\SolrBundle\Doctrine\Annotation\Field;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
 
 class MetaTestInformationFactory {
 	/**

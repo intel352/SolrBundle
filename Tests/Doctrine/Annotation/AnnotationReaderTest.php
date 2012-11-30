@@ -3,16 +3,13 @@
 namespace FS\SolrBundle\Tests\Doctrine\Annotation;
 
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntityFiltered;
-
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntityFloatBoost;
-
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntityWithInvalidBoost;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity;
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithRepository;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository;
-use FS\SolrBundle\Tests\Doctrine\Mapper\NotIndexedEntity;
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\NotIndexedEntity;
 
 /**
  * 

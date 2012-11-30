@@ -2,9 +2,8 @@
 namespace FS\SolrBundle;
 
 use FS\SolrBundle\Event\Event;
-
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
-use FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformationFactory;
 use FS\SolrBundle\Event\EventManager;
 use FS\SolrBundle\Query\AbstractQuery;
 use FS\SolrBundle\Repository\Repository;
@@ -12,9 +11,9 @@ use Doctrine\ORM\Configuration;
 use FS\SolrBundle\Query\SolrQuery;
 use FS\SolrBundle\Query\FindByIdentifierQuery;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\Command\CommandFactory;
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
-use FS\SolrBundle\Doctrine\Mapper\EntityMapper;
+use FS\SolrBundle\Doctrine\Mapping\Mapper\EntityMapper;
 
 class SolrFacade {
 	

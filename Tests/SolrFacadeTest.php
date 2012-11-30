@@ -3,35 +3,21 @@
 namespace FS\SolrBundle\Tests\Solr;
 
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\InvalidTestEntityFiltered;
-
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidTestEntityFiltered;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\SolrDocumentStub;
-
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\SolrDocumentStub;
 use FS\SolrBundle\Tests\SolrResponseFake;
-
 use FS\SolrBundle\Query\FindByDocumentNameQuery;
-
 use FS\SolrBundle\Query\FindByIdentifierQuery;
-
 use FS\SolrBundle\Event\EventManager;
-
 use FS\SolrBundle\Tests\SolrClientFake;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\EntityWithRepository;
-
-use FS\SolrBundle\Doctrine\Mapper\MetaInformation;
-
+use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
 use FS\SolrBundle\Tests\Util\MetaTestInformationFactory;
-
 use FS\SolrBundle\SolrFacade;
 use FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository;
 use FS\SolrBundle\Tests\Util\CommandFactoryStub;
-use FS\SolrBundle\Doctrine\Mapper\Mapping\MapAllFieldsCommand;
 use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
-use FS\SolrBundle\Doctrine\Mapper\Mapping\CommandFactory;
 use FS\SolrBundle\Query\SolrQuery;
 use FS\SolrBundle\SolrQueryFacade;
 
@@ -53,7 +39,7 @@ class SolrFacadeTest extends \PHPUnit_Framework_TestCase {
 	private $solrClientFake = null;
 	
 	public function setUp() {
-		$this->metaFactory = $metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory', array(), array(), '', false);
+		$this->metaFactory = $metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformationFactory', array(), array(), '', false);
 		$this->config = $this->getMock('FS\SolrBundle\SolrConnection', array(), array(), '', false);
 		$this->commandFactory = CommandFactoryStub::getFactoryWithAllMappingCommand();
 		$this->eventManager = $this->getMock('FS\SolrBundle\Event\EventManager', array(), array(), '', false);

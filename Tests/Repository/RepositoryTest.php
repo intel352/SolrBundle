@@ -3,16 +3,9 @@
 namespace FS\SolrBundle\Tests\Solr\Repository;
 
 use FS\SolrBundle\Tests\Util\MetaTestInformationFactory;
-
 use FS\SolrBundle\Tests\Util\CommandFactoryStub;
-
-use FS\SolrBundle\Query\SolrQuery;
-
 use FS\SolrBundle\Repository\Repository;
-
-use FS\SolrBundle\Tests\Doctrine\Mapper\ValidTestEntity;
-
-use FS\SolrBundle\SolrFacade;
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity;
 
 /**
  *  @group repository
@@ -24,12 +17,12 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase {
 		$document->addField('id', 2);
 		$document->addField('document_name_s', 'post');
 		
-		$metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory', array(), array(), '', false);
+		$metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformationFactory', array(), array(), '', false);
 		$metaFactory->expects($this->once())
 					->method('loadInformation')
 					->will($this->returnValue(MetaTestInformationFactory::getMetaInformation()));
 		
-		$mapper = $this->getMock('FS\SolrBundle\Doctrine\Mapper\EntityMapper');
+		$mapper = $this->getMock('FS\SolrBundle\Doctrine\Mapping\Mapper\EntityMapper');
 		$mapper->expects($this->once())
 			   ->method('toDocument')
 			   ->will($this->returnValue($document));	
@@ -63,12 +56,12 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase {
 		$document->addField('id', 2);
 		$document->addField('document_name_s', 'post');
 		
-		$metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapper\MetaInformationFactory', array(), array(), '', false);
+		$metaFactory = $this->getMock('FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformationFactory', array(), array(), '', false);
 		$metaFactory->expects($this->once())
 					->method('loadInformation')
 					->will($this->returnValue(MetaTestInformationFactory::getMetaInformation()));		
 		
-		$mapper = $this->getMock('FS\SolrBundle\Doctrine\Mapper\EntityMapper');
+		$mapper = $this->getMock('FS\SolrBundle\Doctrine\Mapping\Mapper\EntityMapper');
 		$mapper->expects($this->once())
 			   ->method('toDocument')
 			   ->will($this->returnValue($document));	
