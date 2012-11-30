@@ -7,12 +7,12 @@
     <parameters>
         <parameter key="solr.class">FS\SolrBundle\SolrFacade</parameter>
         <parameter key="solr.connection.class">FS\SolrBundle\SolrConnection</parameter>
-        <parameter key="solr.mapping.factory.class">FS\SolrBundle\Doctrine\Mapping\Mapper\CommandCommandFactory</parameter>
+        <parameter key="solr.mapping.factory.class">FS\SolrBundle\Doctrine\Mapping\Mapper\Command\CommandFactory</parameter>
         <parameter key="solr.meta.information.factory.class">FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformationFactory</parameter>
         <parameter key="solr.doctrine.configuration.class">FS\SolrBundle\Doctrine\Configuration</parameter>
         
-        <parameter key="solr.mapping.all.class">FS\SolrBundle\Doctrine\Mapping\Mapper\CommandMapAllFieldsCommand</parameter>
-        <parameter key="solr.mapping.identifier.class">FS\SolrBundle\Doctrine\Mapping\Mapper\CommandMapIdentifierCommand</parameter>
+        <parameter key="solr.mapping.all.class">FS\SolrBundle\Doctrine\Mapping\Mapper\Command\MapAllFieldsCommand</parameter>
+        <parameter key="solr.mapping.identifier.class">FS\SolrBundle\Doctrine\Mapping\Mapper\Command\MapIdentifierCommand</parameter>
         <parameter key="solr.event_manager.class">FS\SolrBundle\Event\EventManager</parameter>
         <parameter key="solr.connection_factory.class">FS\SolrBundle\SolrConnectionFactory</parameter>
         <parameter key="solr.log_listener.insert.class">FS\SolrBundle\Event\Listener\InsertLogListener</parameter>
