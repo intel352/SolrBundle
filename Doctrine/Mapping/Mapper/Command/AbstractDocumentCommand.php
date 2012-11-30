@@ -2,7 +2,6 @@
 namespace FS\SolrBundle\Doctrine\Mapping\Mapper\Command;
 
 use FS\SolrBundle\Doctrine\Mapping\Mapper\MetaInformation;
-use FS\SolrBundle\Doctrine\Annotation\AnnotationReader;
 
 abstract class AbstractDocumentCommand {
 	
