@@ -2,7 +2,6 @@
 namespace FS\SolrBundle\Tests\Doctrine\Driver;
 
 use FS\SolrBundle\Doctrine\Mapping\Driver\MappingDriverAggregator;
-
 use FS\SolrBundle\Doctrine\Annotation\Field;
 
 /**
