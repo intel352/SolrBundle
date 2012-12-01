@@ -12,8 +12,6 @@ class XmlMappingDriver extends AbstractMappingDriver {
 			$path = $this->dir.'/'.$file->getFilename();
 			$xml = simplexml_load_file($path);
 		}
-
-		
 	}
 }
 
