@@ -34,7 +34,7 @@ class FSSolrExtension extends Extension {
         
         $this->setupDoctrineListener($config, $container);
         $this->setupDoctrineConfiguration($config, $container);
-       
+       	$this->setupEntityMapping($container);
     }
     
     /**
@@ -120,6 +120,50 @@ class FSSolrExtension extends Extension {
     	}
     }
     
+    private function setupEntityMapping(ContainerBuilder $container) {
+    	$bundles = array();
+     	foreach ($container->getParameter('kernel.bundles') as $name => $class) {
+			$bundle = new \ReflectionClass($class);
+			$bundles[$name] = $bundle;
+     	}
+     	
+     	$mapping = $this->getBundleMappings($bundles);
+    }
+        
+    private function getBundleMappings(array $bundles) {
+    	
+    	$mappings = array();
+    	foreach ($bundles as $name => $bundle) {
+    		$dir = dirname($bundle->getFilename());
+
+    		$mappgingDirectory = $dir.'/'.$this->getDefaultMappingConfigurationDir();
+    		
+    		if (!is_dir($mappgingDirectory)) {
+    			continue;
+    		}
+    		
+    		$mappings[$name]['dir'] = $mappgingDirectory;
+    		$mappings[$name]['type'] = $this->detectMappingDriver($dir);
+    	}
+
+    	return $mappings;
+    }
+    
+    protected function detectMappingDriver($dir) {
+    	$configPath = $this->getDefaultMappingConfigurationDir();
+    
+    	$extension = '';
+    	if (($files = glob($dir.'/'.$configPath.'/*.xml')) && count($files)) {
+    		return 'xml';
+    	} elseif (($files = glob($dir.'/'.$configPath.'/*.yml')) && count($files)) {
+    		return 'yml';
+    	} elseif (($files = glob($dir.'/'.$configPath.'/*.php')) && count($files)) {
+    		return 'php';
+    	}
+    
+    	return null;
+    }    
+    
     /**
      * @param ContainerBuilder $container
      * @return boolean 
@@ -128,4 +172,7 @@ class FSSolrExtension extends Extension {
     	return $container->hasParameter('doctrine_mongodb.odm.document_managers');
     }
     
+    public function getDefaultMappingConfigurationDir() {
+    	return 'Resources/config/solr';
+    }
 }

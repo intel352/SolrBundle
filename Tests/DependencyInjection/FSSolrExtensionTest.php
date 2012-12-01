@@ -26,6 +26,7 @@ class FSSolrExtensionTest extends \PHPUnit_Framework_TestCase {
 		
 		$definition = new Definition();
 		$this->container->setDefinition('doctrine.orm.default_configuration', $definition);
+		$this->container->setParameter('kernel.bundles', array());
 	}
 	
 	private function commonConfig() {
