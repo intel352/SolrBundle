@@ -2,9 +2,8 @@
 
 <document-entity-mapping>
 	<document entity="FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity" 
-			  boost="0" 
 			  repository="FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository">
 		<field name="title" type="string" property="title" />
-	
+		<field name="text" type="string" property="text" />
 	</document>
 </document-entity-mapping>
