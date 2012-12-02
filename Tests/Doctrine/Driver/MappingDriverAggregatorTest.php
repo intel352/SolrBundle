@@ -1,8 +1,8 @@
 <?php
 namespace FS\SolrBundle\Tests\Doctrine\Driver;
 
+use FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity;
 use FS\SolrBundle\Doctrine\Mapping\Driver\MappingDriverAggregator;
-use FS\SolrBundle\Doctrine\Annotation\Field;
 
 /**
  *
@@ -18,6 +18,17 @@ class MappingDriverAggregatorTest extends \PHPUnit_Framework_TestCase {
 			)
 		);
 	}
+
+	/**
+	 * @return MappingDriverAggregator
+	 */
+	private function loadAggreator() {
+		$aggregator = new MappingDriverAggregator();
+		$aggregator->setMappingConfig($this->getMapping());
+		$aggregator->load();
+
+		return $aggregator;
+	}
 	
 	public function testLoad() {
 		$aggregator = new MappingDriverAggregator();
@@ -25,8 +36,18 @@ class MappingDriverAggregatorTest extends \PHPUnit_Framework_TestCase {
 		
 		$aggregator->load();
 		$mappings = $aggregator->getMappings();
-		
+
 		$this->assertEquals(1, count($mappings), 'loaded mappings');
-		$this->assertTrue($aggregator->isLoaded());
+		$this->assertArrayHasKey('FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity', $mappings, 'mapping for entity');
+		$this->assertTrue($aggregator->isLoaded(), 'aggreator is loaded');
+	}
+	
+	public function testGetMapping() {
+		$aggregator = $this->loadAggreator();
+		
+		$mapping = $aggregator->getMapping(new ValidTestEntity());
+		
+		$this->assertTrue(is_array($mapping));
+		$this->assertEquals(2, count($mapping['fields']));
 	}
 }

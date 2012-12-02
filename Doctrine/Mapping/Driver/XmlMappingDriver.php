@@ -1,12 +1,16 @@
 <?php
 namespace FS\SolrBundle\Doctrine\Mapping\Driver;
 
-use Symfony\Component\Finder\Finder;
+
+
+use FS\SolrBundle\Doctrine\Annotation\Field;
 
 class XmlMappingDriver extends AbstractMappingDriver {
+	
+	protected $filePattern = '*.xml';
+	
 	public function load() {
-		$finder = new Finder();
-		$files = $finder->files()->in($this->dir)->name('*.xml');
+		$files = $this->getFiles();
 		
 		foreach ($files as $file) {
 			$path = $this->dir.'/'.$file->getFilename();
@@ -20,11 +24,13 @@ class XmlMappingDriver extends AbstractMappingDriver {
 			$mapping = array();
 			$mapping['attributes']['repository'] = $this->elementToString($attributes['repository']);
 			$mapping['attributes']['boost'] = $this->elementToString($attributes['boost']);
-			$mapping['attributes']['entity'] = $this->elementToString($attributes['entity']);
+			
+			$entity = $this->elementToString($attributes['entity']);
+			$mapping['attributes']['entity'] = $entity;
 			
 			$mapping = $this->loadFields($documentNode, $mapping);
 			
-			$this->mappings[] = $mapping;
+			$this->mappings[$entity] = $mapping;
 		}
 	}
 	
@@ -32,10 +38,10 @@ class XmlMappingDriver extends AbstractMappingDriver {
 		foreach ($documentNode->field as $fieldNode) {
 			$fieldAttributes = $fieldNode->attributes();
 		
-			$field = array();
-			$field['name'] = $this->elementToString($fieldAttributes['name']);
-			$field['type'] = $this->elementToString($fieldAttributes['type']);
-			$field['property'] = $this->elementToString($fieldAttributes['property']);
+			$field = new Field(array(
+				'name' => $this->elementToString($fieldAttributes['name']),
+				'type' => $this->elementToString($fieldAttributes['type'])	
+			));
 
 			$mapping['fields'][] = $field;
 		}	

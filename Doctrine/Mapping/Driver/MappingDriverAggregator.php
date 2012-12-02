@@ -17,10 +17,16 @@ class MappingDriverAggregator {
 		if (!$this->isLoaded) {
 			$this->load();
 		}
+		
+		$class = $this->getClass($object);
+		if (array_key_exists($class, $this->mappings)) {
+			return $this->mappings[$class];
+		}
+		
+		return array();
 	}
 	
 	public function load() {
-		
 		foreach ($this->mappingConfig as $config) {
 			$driver = $this->getDriver($config['type']);
 			$driver->setDir($config['dir']);
@@ -50,6 +56,14 @@ class MappingDriverAggregator {
 	
 	public function isLoaded() {
 		return $this->isLoaded;
+	}
+	
+	private function getClass($object) {
+		if (is_null($object)) {
+			throw new \RuntimeException('object should not be null');
+		}
+		
+		return get_class($object);
 	}
 }
 

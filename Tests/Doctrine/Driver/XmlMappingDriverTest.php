@@ -29,13 +29,16 @@ class XmlMappingDriverTest extends \PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey('entity', $mapping['attributes']);
 		$this->assertArrayHasKey('repository', $mapping['attributes']);
 		
+		$this->assertEquals('2', $mapping['attributes']['boost'], 'document boost');
+		$this->assertEquals('FS\SolrBundle\Tests\Doctrine\Mapping\Mapper\ValidTestEntity', $mapping['attributes']['entity'], 'entity');
+		$this->assertEquals('FS\SolrBundle\Tests\Doctrine\Annotation\Entities\ValidEntityRepository', $mapping['attributes']['repository'], 'document repository');
+		
 		$this->assertArrayHasKey('fields', $mapping);
 		$this->assertEquals(2, count($mapping['fields']));
 		$field = array_pop($mapping['fields']);
 		
-		$this->assertArrayHasKey('name', $field);
-		$this->assertArrayHasKey('type', $field);
-		$this->assertArrayHasKey('property', $field);
+		$this->assertEquals('text', $field->name, 'field name');
+		$this->assertEquals('text', $field->type, 'field type');
 	}
 }
 
