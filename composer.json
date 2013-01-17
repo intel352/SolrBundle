@@ -9,7 +9,7 @@
         "ext-solr": "*",
         "symfony/framework-bundle": ">=2.1",
         "doctrine/doctrine-bundle": "*",
-        "doctrine/doctrine-orm": "*"
+        "doctrine/orm": "*"
     },
     "suggests": {
         "doctrine/mongodb-odm-bundle": "Doctrine: MongoDB ODM"
